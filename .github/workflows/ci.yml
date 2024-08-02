@@ -1,0 +1,27 @@
+name: Deploy Docs
+
+on:
+  push:
+    branches:
+      - main
+permissions: write-all
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10.14'
+    - name: Install mkdocs-material and ghp-import
+      run: |
+        pip install mkdocs-material ghp-import
+    - name: Deploy to GitHub Pages
+      run: |
+        mkdocs gh-deploy --force
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
