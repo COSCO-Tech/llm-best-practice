@@ -11,7 +11,7 @@ nav:
     - 国产银河麒麟V10系统 aarch64架构 离线安装Docker: NPU/docker.md
     - Atlas 300I Duo 离线安装Miniforge Python环境: NPU/miniforge.md
     - Atlas 300I Duo 昇腾虚拟化实例（算力切分）: NPU/vnpu.md
-    # - Atlas 300I Duo + Qwen2-0.5B-Chat + vNPU: NPU/llm.md
+    - Atlas 300I Duo + Qwen1.5-7B-Chat: NPU/llm.md
   # - GPU:
   #   - Build Env: GPU/env.md
   # - Train: 
