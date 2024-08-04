@@ -101,9 +101,6 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
 
    模型示例选择：`Qwen1.5/Qwen1.5-7B-Chat` 存放于 `/home/models/Qwen1.5/Qwen1.5-7B-Chat`
 
-   ```bash title="bash input"
-   ls /home/models/Qwen1.5/Qwen1.5-7B-Chat
-   ```
 
 ## 测试运行
 
@@ -187,9 +184,9 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
    cd /usr/local/Ascend/llm_model
    ```
 
-   **修改`config.json`
-    1. Qwen1.5模型权重所在路径中的config.json文件需将字段`torch_dtype`的值修改为"float16"**
-    2. 添加 `"world_size": 1`
+ - **修改`config.json`
+     - Qwen1.5模型权重所在路径中的config.json文件需将字段`torch_dtype`的值修改为"float16"**
+
 
     ```bash
     CHECKPOINT=/home/models/Qwen1.5/Qwen1.5-7B-Chat
@@ -198,7 +195,7 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     "torch_dtype": "float16"
     ```
 
-    **修改`examples/models/qwen/run_pa.sh`中的临时环境变量, Qwen1.5-7B-Chat仅需单卡即可运行**
+ - **修改`examples/models/qwen/run_pa.sh`中的临时环境变量, Qwen1.5-7B-Chat仅需单卡即可运行**
 
     ```bash
     vim /usr/local/Ascend/llm_model/examples/models/qwen/run_pa.sh
@@ -352,20 +349,6 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     在物理机另开终端
     
     [使用兼容OpenAI接口](https://www.hiascend.com/document/detail/zh/mindie/10RC2/mindieservice/servicedev/mindie_service0010.html)
-
-    ```bash
-    curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{
-        "prompt": "My name is Olivier and I",
-        "max_tokens": 20,
-        "repetition_penalty": 1.03,
-        "presence_penalty": 1.2,
-        "frequency_penalty": 1.2,
-        "temperature": 0.5,
-        "top_k": 10,
-        "top_p": 0.95,
-        "stream": false
-    }' http://127.0.0.1:1025/generate
-    ```
 
     ```bash
     curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{
