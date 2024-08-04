@@ -54,7 +54,7 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
 
    ```bash title="bash output"
    REPOSITORY                  TAG       IMAGE ID       CREATED        SIZE
-   {ip}:{docker-registry-port}/python          3.9       185523026cbb   4 months ago   996MB
+   {ip}:{port}/python          3.9       185523026cbb   4 months ago   996MB
    ```
 
 ## 内网拉取MindIE镜像
@@ -82,19 +82,19 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
  - re-tag镜像
 
    ```bash
-   sudo docker tag swr.cn-south-1.myhuaweicloud.com/ascendhub/mindie:1.0.RC2-300I-Duo-aarch64 localhost:{docker-registry-port}/mindie:1.0.RC2-300I-Duo-aarch64
+   sudo docker tag swr.cn-south-1.myhuaweicloud.com/ascendhub/mindie:1.0.RC2-300I-Duo-aarch64 localhost:30002/mindie:1.0.RC2-300I-Duo-aarch64
    ```
 
  - push镜像至docker-registry私有镜像仓库
 
    ```bash
-   sudo docker push localhost:{docker-registry-port}/mindie:1.0.RC2-300I-Duo-aarch64
+   sudo docker push localhost:{port}/mindie:1.0.RC2-300I-Duo-aarch64
    ```
 
 - 切换至Atlas 300I Duo，拉取docker-registry私有镜像仓库中的MindIE镜像
 
    ```bash
-   docker pull {ip}:{docker-registry-port}/mindie:1.0.RC2-300I-Duo-aarch64
+   docker pull {ip}:{port}/mindie:1.0.RC2-300I-Duo-aarch64
    ```
 
  - 上传模型至Atlas 300I Duo
@@ -106,6 +106,12 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
    ```
 
 ## 测试运行
+
+ - 查找可用的vNPU 
+
+    ```
+    ls /dev/ | grep davinci*
+    ```
 
  - 编写shell脚本 用于启动MindIE镜像
    
@@ -121,18 +127,17 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
    docker run --name ${NAME} -it -d --net=host --shm-size=500g \
       --privileged=true \
       -w /home \
-      --device=/dev/davinci0 \
-      --device=/dev/davinci1 \
+      --device=/dev/vdavinci212:/dev/davinci212 \
       --device=/dev/davinci_manager \
       --device=/dev/hisi_hdc \
       --device=/dev/devmm_svm \
       --entrypoint=bash \
-      -v /usr/local/Ascend/driver:/usr/local/Ascend/driver \
-      -v /usr/local/dcmi:/usr/local/dcmi \
       -v /usr/local/bin/npu-smi:/usr/local/bin/npu-smi \
-      -v /usr/local/sbin:/usr/local/sbin \
       -v /home:/home \
-      -v /tmp:/tmp \
+      -v /usr/local/Ascend/driver/lib64/common:/usr/local/Ascend/driver/lib64/common \
+      -v /usr/local/Ascend/driver/lib64/driver:/usr/local/Ascend/driver/lib64/driver \
+      -v /etc/ascend_install.info:/etc/ascend_install.info \
+      -v /usr/local/Ascend/driver/version.info:/usr/local/Ascend/driver/version.info \
       -v /usr/share/zoneinfo/Asia/Shanghai:/etc/localtime \
       -e http_proxy=$http_proxy \
       -e https_proxy=$https_proxy \
@@ -179,7 +184,7 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
    ```
 
 
- - 修改 Qwen1.5-7B-Chat 模型配置
+ - 修改Qwen1.5-7B-Chat 模型配置
 
    Qwen + MindIE适配详细README路径：`/usr/local/Ascend/llm_model/examples/models/qwen/README.md`
 
@@ -192,10 +197,10 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     2. 添加 `"world_size": 1`
 
     ```bash
-    CHECKPOINT=/home/models/Qwen1.5/Qwen1.5-7B-Chat
     vim ${CHECKPOINT}/config.json
 
-    "torch_dtype": "float16"
+    "torch_dtype": "float16",
+    "world_size": 1,
     ```
 
     **修改`examples/models/qwen/run_pa.sh`中的临时环境变量, Qwen1.5-7B-Chat仅需单卡即可运行**
@@ -208,10 +213,12 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
 
 
  - 执行推理测试脚本
+
     - `-m`: 指定模型权重文件夹路径
     - `-c`: 指定是否是Chat
 
     ```
+    CHECKPOINT=/home/models/Qwen1.5/Qwen1.5-7B-Chat
     bash examples/models/qwen/run_pa.sh -m ${CHECKPOINT} -c true
     ```
 
@@ -228,6 +235,14 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     bash examples/models/qwen/run_pa.sh -m ${CHECKPOINT} -c true
     ```
 
+ - Hi-Dolphin-7B-Chat (基于Qwen2-7B-Chat)
+
+    ```bash
+    cd /usr/local/Ascend/llm_model
+    CHECKPOINT=/home/models/Dolphin/Dolphin-7B-Instruction-0709
+    bash examples/models/qwen/run_pa.sh -m ${CHECKPOINT} -c true
+    ```
+
 ## 部署推理服务
 
  - 修改配置 `/usr/local/Ascend/mindie/latest/mindie-service/conf/config.json` 
@@ -235,6 +250,7 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     cp /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config-backup.json
     rm -rf /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
     touch /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+    vim /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
     ```
 
  - 配置显卡可见性
@@ -349,9 +365,7 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
 
   - 测试服务可用性
     
-    在物理机另开终端
-    
-    [使用兼容OpenAI接口](https://www.hiascend.com/document/detail/zh/mindie/10RC2/mindieservice/servicedev/mindie_service0010.html)
+    在物理机另开终端：
 
     ```bash
     curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{
@@ -384,152 +398,3 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
       "stream": false
       }' http://127.0.0.1:1025/v1/chat/completions
     ```
-
-
-<!-- ## 两芯片（单卡300I Duo）部署Hi-Dolphin-7B-Chat推理服务 (TODO)
-
- - 修改配置 `/usr/local/Ascend/mindie/latest/mindie-service/conf/config.json` 
-    ```bash
-    cp /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config-backup.json
-    rm -rf /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
-    touch /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
-    vim /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
-    ```
-
- - 配置显卡可见性
-
-    ```bash
-    export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3
-    ```
-
- - 配置如下：
-    ```json
-    rm -rf /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
-    touch /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
-    cat > /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json <<EOF
-    {
-        "OtherParam" :
-        {
-            "ResourceParam" :
-            {
-                "cacheBlockSize" : 128,
-                "preAllocBlocks" : 4
-            },
-            "LogParam" :
-            {
-                "logLevel" : "Info",
-                "logPath" : "logs/mindservice.log"
-            },
-            "ServeParam" :
-            {
-                "ipAddress" : "127.0.0.1",
-                "managementIpAddress" : "127.0.0.2",
-                "port" : 1025,
-                "managementPort" : 1026,
-                "maxLinkNum" : 1000,
-                "httpsEnabled" : false,
-                "tlsCaPath" : "security/ca/",
-                "tlsCaFile" : ["ca.pem"],
-                "tlsCert" : "security/certs/server.pem",
-                "tlsPk" : "security/keys/server.key.pem",
-                "tlsPkPwd" : "security/pass/mindie_server_key_pwd.txt",
-                "tlsCrl" : "security/certs/server_crl.pem",
-                "managementTlsCaFile" : ["management_ca.pem"],
-                "managementTlsCert" : "security/certs/management_server.pem",
-                "managementTlsPk" : "security/keys/management_server.key.pem",
-                "managementTlsPkPwd" : "security/pass/management_mindie_server_key_pwd.txt",
-                "managementTlsCrl" : "security/certs/management_server_crl.pem",
-                "kmcKsfMaster" : "tools/pmt/master/ksfa",
-                "kmcKsfStandby" : "tools/pmt/standby/ksfb",
-                "multiNodesInferPort" : 1120,
-                "interNodeTLSEnabled" : false,
-                "interNodeTlsCaFile" : "security/ca/ca.pem",
-                "interNodeTlsCert" : "security/certs/server.pem",
-                "interNodeTlsPk" : "security/keys/server.key.pem",
-                "interNodeTlsPkPwd" : "security/pass/mindie_server_key_pwd.txt",
-                "interNodeKmcKsfMaster" : "tools/pmt/master/ksfa",
-                "interNodeKmcKsfStandby" : "tools/pmt/standby/ksfb"
-            }
-        },
-        "WorkFlowParam" :
-        {
-            "TemplateParam" :
-            {
-                "templateType" : "Standard",
-                "templateName" : "Standard_llama",
-                "pipelineNumber" : 1
-            }
-        },
-        "ModelDeployParam" :
-        {
-            "engineName" : "mindieservice_llm_engine",
-            "modelInstanceNumber" : 1,
-            "tokenizerProcessNumber" : 8,
-            "maxSeqLen" : 2560,
-            "npuDeviceIds" : [[0,1,2,3]],
-            "multiNodesInferEnabled" : false,
-            "ModelParam" : [
-                {
-                    "modelInstanceType" : "Standard",
-                    "modelName" : "Qwen",
-                    "modelWeightPath" : "/home/models/Qwen1.5/Qwen1.5-7B-Chat",
-                    "worldSize" : 4,
-                    "cpuMemSize" : 5,
-                    "npuMemSize" : 16,
-                    "backendType" : "atb",
-                    "pluginParams" : ""
-                }
-            ]
-        },
-        "ScheduleParam" :
-        {
-            "maxPrefillBatchSize" : 50,
-            "maxPrefillTokens" : 8192,
-            "prefillTimeMsPerReq" : 150,
-            "prefillPolicyType" : 0,
-
-            "decodeTimeMsPerReq" : 50,
-            "decodePolicyType" : 0,
-
-            "maxBatchSize" : 200,
-            "maxIterTimes" : 512,
-            "maxPreemptCount" : 0,
-            "supportSelectBatch" : false,
-            "maxQueueDelayMicroseconds" : 5000
-        }
-    }
-    EOF
-    ```
-
-    ```
-    export PYTHONPATH=/usr/local/Ascend/llm_model:$PYTHONPATH
-    cd /usr/local/Ascend/mindie/latest/mindie-service/bin
-    ./mindieservice_daemon
-
-    cat ../logs/mindservice.log
-    ```
-
-
-  - 测试服务可用性
-    
-    在物理机另开终端
-
-    [使用兼容OpenAI接口](https://www.hiascend.com/document/detail/zh/mindie/10RC2/mindieservice/servicedev/mindie_service0010.html)
-
-    ```bash
-    curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{
-      "model": "dolphin",
-      "messages": [{
-        "role": "system",
-        "content": "You are a helpful assistant."
-      },
-      {"role": "system",
-      "content": "你是谁"}],
-      "presence_penalty": 1.03,
-      "frequency_penalty": 1.0,
-      "seed": null,
-      "temperature": 0.5,
-      "top_p": 0.95,
-      "stream": false
-      }' http://127.0.0.1:1025/v1/chat/completions
-    ``` -->
