@@ -9,6 +9,8 @@
       
       
       
+        <link rel="prev" href="../llm%2Bvnpu/">
+      
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -16,7 +18,7 @@
     
     
       
-        <title>Intro - LLM Best Practice</title>
+        <title>常见问题解决 - LLM Best Practice</title>
       
     
     
@@ -57,6 +59,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#_1" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -89,7 +96,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Intro
+              常见问题解决
             
           </span>
         </div>
@@ -199,17 +206,19 @@
       
   
   
+    
   
   
+  
     
     
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
         
           
           <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
@@ -223,7 +232,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_2">
             <span class="md-nav__icon md-icon"></span>
             NPU
@@ -360,10 +369,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../faq/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    常见问题解决
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -372,6 +401,35 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-npu-npu-smi-info-lspci-grep-acc" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. NPU丢失问题： npu-smi info发现缺失卡 lspci | grep acc同样缺失卡
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -401,6 +459,25 @@
   
   
   
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-npu-npu-smi-info-lspci-grep-acc" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. NPU丢失问题： npu-smi info发现缺失卡 lspci | grep acc同样缺失卡
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -415,9 +492,50 @@
                   
 
 
-  <h1>Intro</h1>
-
-
+<h1 id="_1">常见问题解决</h1>
+<h2 id="1-npu-npu-smi-info-lspci-grep-acc">1. NPU丢失问题： <code>npu-smi info</code>发现缺失卡 <code>lspci | grep acc</code>同样缺失卡</h2>
+<ul>
+<li>
+<p><strong>解决方案</strong>：升级/重装NPU固件驱动时，需按照<strong>固件 &gt; 驱动</strong>的顺序升级。直接覆盖安装</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>./Ascend-hdk-310p-npu-firmware_7.1.0.4.220.run<span class="w"> </span>--check
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./Ascend-hdk-310p-npu-firmware_7.1.0.4.220.run<span class="w"> </span>--full
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>./Ascend-hdk-310p-npu-driver_23.0.1_linux-aarch64.run<span class="w"> </span>--check
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>./Ascend-hdk-310p-npu-driver_23.0.1_linux-aarch64.run<span class="w"> </span>--full<span class="w"> </span>--install-for-all
+</code></pre></div>
+<p>报错：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="o">[</span>ERROR<span class="o">]</span>The<span class="w"> </span>davinci<span class="w"> </span>nodes<span class="w"> </span>are<span class="w"> </span>occupied<span class="w"> </span>by<span class="w"> </span>some<span class="w"> </span>processes,<span class="w"> </span>please<span class="w"> </span>stop<span class="w"> </span>processes<span class="w"> </span>and<span class="w"> </span>install<span class="w"> </span>or<span class="w"> </span>uninstall<span class="w"> </span>again,<span class="w"> </span>details<span class="w"> </span><span class="k">in</span><span class="w"> </span>:<span class="w"> </span>/var/log/ascend_seclog/ascend_install.log<span class="w"> </span>
+</code></pre></div>
+<p>检查日志：</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>cat<span class="w"> </span>/var/log/ascend_seclog/ascend_install.log
+</code></pre></div>
+<div class="highlight"><span class="filename">日志信息</span><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="o">[</span>WARNING<span class="o">]</span>/dev/davinci_manager<span class="w"> </span>has<span class="w"> </span>used<span class="w"> </span>by<span class="w"> </span>docker
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="o">[</span>ERROR<span class="o">]</span>The<span class="w"> </span>davinci<span class="w"> </span>nodes<span class="w"> </span>are<span class="w"> </span>occupied<span class="w"> </span>by<span class="w"> </span>some<span class="w"> </span>processes,<span class="w"> </span>please<span class="w"> </span>stop<span class="w"> </span>processes<span class="w"> </span>and<span class="w"> </span>install<span class="w"> </span>or<span class="w"> </span>uninstall<span class="w"> </span>again.
+</code></pre></div>
+<div class="highlight"><span class="filename">stop&rm docker container</span><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>docker<span class="w"> </span>stop<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </span>-q<span class="k">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>docker<span class="w"> </span>rm<span class="w"> </span><span class="k">$(</span>docker<span class="w"> </span>ps<span class="w"> </span>-a<span class="w"> </span>-q<span class="k">)</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">销毁 vNPU</span><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># 查看vNPU信息</span>
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>npu-smi<span class="w"> </span>info<span class="w"> </span>-t<span class="w"> </span>info-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">0</span>
+<a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>npu-smi<span class="w"> </span>info<span class="w"> </span>-t<span class="w"> </span>info-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">1</span>
+<a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="c1"># 销毁vNPU</span>
+<a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>npu-smi<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-t<span class="w"> </span>destroy-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">0</span><span class="w"> </span>-v<span class="w"> </span><span class="m">196</span>
+<a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>npu-smi<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-t<span class="w"> </span>destroy-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">0</span><span class="w"> </span>-v<span class="w"> </span><span class="m">197</span>
+<a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>npu-smi<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-t<span class="w"> </span>destroy-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">0</span><span class="w"> </span>-v<span class="w"> </span><span class="m">198</span>
+<a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>npu-smi<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-t<span class="w"> </span>destroy-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">0</span><span class="w"> </span>-v<span class="w"> </span><span class="m">199</span>
+<a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>npu-smi<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-t<span class="w"> </span>destroy-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-v<span class="w"> </span><span class="m">212</span>
+<a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>npu-smi<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-t<span class="w"> </span>destroy-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-v<span class="w"> </span><span class="m">213</span>
+<a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>npu-smi<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-t<span class="w"> </span>destroy-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-v<span class="w"> </span><span class="m">214</span>
+<a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>npu-smi<span class="w"> </span><span class="nb">set</span><span class="w"> </span>-t<span class="w"> </span>destroy-vnpu<span class="w"> </span>-i<span class="w"> </span><span class="m">5</span><span class="w"> </span>-c<span class="w"> </span><span class="m">1</span><span class="w"> </span>-v<span class="w"> </span><span class="m">215</span>
+<a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="c1"># 查看销毁结果</span>
+<a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>ls<span class="w"> </span>/dev/<span class="w"> </span><span class="p">|</span><span class="w"> </span>grep<span class="w"> </span>davinci*
+</code></pre></div>
+<div class="highlight"><span class="filename">再次尝试重装驱动</span><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>./Ascend-hdk-310p-npu-driver_23.0.1_linux-aarch64.run<span class="w"> </span>--full<span class="w"> </span>--install-for-all<span class="w"> </span>--force
+</code></pre></div>
+</li>
+</ul>
 
 
 
