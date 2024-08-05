@@ -12,6 +12,8 @@ nav:
     - Atlas 300I Duo 离线安装Miniforge Python环境: NPU/miniforge.md
     - Atlas 300I Duo 昇腾虚拟化实例（算力切分）: NPU/vnpu.md
     - Atlas 300I Duo + Qwen1.5-7B-Chat: NPU/llm.md
+    - Atlas 300I Duo + vNPU + MindIE: NPU/llm+vnpu.md
+    - 常见问题解决: NPU/faq.md
   # - GPU:
   #   - Build Env: GPU/env.md
   # - Train: 
