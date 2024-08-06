@@ -9,10 +9,10 @@
       
       
       
-        <link rel="prev" href="../vnpu/">
+        <link rel="prev" href="../llm/">
       
       
-        <link rel="next" href="../llm_parallel/">
+        <link rel="next" href="../ocr/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -20,7 +20,7 @@
     
     
       
-        <title>MindIE单机单卡部署Qwen1.5-7B-Chat - LLM Best Practice</title>
+        <title>（TODO）MindIE单机多卡部署Qwen1.5-72B-Chat - LLM Best Practice</title>
       
     
     
@@ -98,7 +98,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              MindIE单机单卡部署Qwen1.5-7B-Chat
+              （TODO）MindIE单机多卡部署Qwen1.5-72B-Chat
             
           </span>
         </div>
@@ -366,6 +366,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../llm/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    MindIE单机单卡部署Qwen1.5-7B-Chat
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -382,7 +403,7 @@
           
   
   <span class="md-ellipsis">
-    MindIE单机单卡部署Qwen1.5-7B-Chat
+    （TODO）MindIE单机多卡部署Qwen1.5-72B-Chat
   </span>
   
 
@@ -393,7 +414,7 @@
         
   
   <span class="md-ellipsis">
-    MindIE单机单卡部署Qwen1.5-7B-Chat
+    （TODO）MindIE单机多卡部署Qwen1.5-72B-Chat
   </span>
   
 
@@ -463,27 +484,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../llm_parallel/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
-    （TODO）MindIE单机多卡部署Qwen1.5-72B-Chat
-  </span>
-  
-
-      </a>
     </li>
   
 
@@ -867,20 +867,26 @@
 <a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="w">    </span>-w<span class="w"> </span>/home<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci0<span class="w"> </span><span class="se">\</span>
 <a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci1<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci_manager<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span>--device<span class="o">=</span>/dev/hisi_hdc<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span>--device<span class="o">=</span>/dev/devmm_svm<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span>--entrypoint<span class="o">=</span>bash<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span>-v<span class="w"> </span>/usr/local/Ascend/driver:/usr/local/Ascend/driver<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">    </span>-v<span class="w"> </span>/usr/local/dcmi:/usr/local/dcmi<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span>-v<span class="w"> </span>/usr/local/bin/npu-smi:/usr/local/bin/npu-smi<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">    </span>-v<span class="w"> </span>/usr/local/sbin:/usr/local/sbin<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span>-v<span class="w"> </span>/home:/home<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">    </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">    </span>-v<span class="w"> </span>/usr/share/zoneinfo/Asia/Shanghai:/etc/localtime<span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">    </span>-e<span class="w"> </span><span class="nv">http_proxy</span><span class="o">=</span><span class="nv">$http_proxy</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">    </span>-e<span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span><span class="nv">$https_proxy</span><span class="w"> </span><span class="se">\</span>
-<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">    </span><span class="si">${</span><span class="nv">IMAGES_ID</span><span class="si">}</span>
+<a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci2<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci3<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci4<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci5<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci6<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci7<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="w">    </span>--device<span class="o">=</span>/dev/davinci_manager<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="w">    </span>--device<span class="o">=</span>/dev/hisi_hdc<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="w">    </span>--device<span class="o">=</span>/dev/devmm_svm<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a><span class="w">    </span>--entrypoint<span class="o">=</span>bash<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="w">    </span>-v<span class="w"> </span>/usr/local/Ascend/driver:/usr/local/Ascend/driver<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="w">    </span>-v<span class="w"> </span>/usr/local/dcmi:/usr/local/dcmi<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="w">    </span>-v<span class="w"> </span>/usr/local/bin/npu-smi:/usr/local/bin/npu-smi<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a><span class="w">    </span>-v<span class="w"> </span>/usr/local/sbin:/usr/local/sbin<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="w">    </span>-v<span class="w"> </span>/home:/home<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="w">    </span>-v<span class="w"> </span>/tmp:/tmp<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="w">    </span>-v<span class="w"> </span>/usr/share/zoneinfo/Asia/Shanghai:/etc/localtime<span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="w">    </span>-e<span class="w"> </span><span class="nv">http_proxy</span><span class="o">=</span><span class="nv">$http_proxy</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="w">    </span>-e<span class="w"> </span><span class="nv">https_proxy</span><span class="o">=</span><span class="nv">$https_proxy</span><span class="w"> </span><span class="se">\</span>
+<a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a><span class="w">    </span><span class="si">${</span><span class="nv">IMAGES_ID</span><span class="si">}</span>
 </code></pre></div>
 <p>参数说明：</p>
 <ul>
@@ -1100,10 +1106,150 @@
 <a id="__codelineno-24-15" name="__codelineno-24-15" href="#__codelineno-24-15"></a><span class="s1">  }&#39;</span><span class="w"> </span>http://127.0.0.1:1025/v1/chat/completions
 </code></pre></div>
 </li>
-<li>
-<p>BenchMark 性能测试</p>
-</li>
 </ul>
+<!-- ## 两芯片（单卡300I Duo）部署Hi-Dolphin-7B-Chat推理服务 (TODO)
+
+ - 修改配置 `/usr/local/Ascend/mindie/latest/mindie-service/conf/config.json` 
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-25-1" name="__codelineno-25-1" href="#__codelineno-25-1"></a>cp<span class="w"> </span>/usr/local/Ascend/mindie/latest/mindie-service/conf/config.json<span class="w"> </span>/usr/local/Ascend/mindie/latest/mindie-service/conf/config-backup.json
+<a id="__codelineno-25-2" name="__codelineno-25-2" href="#__codelineno-25-2"></a>rm<span class="w"> </span>-rf<span class="w"> </span>/usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+<a id="__codelineno-25-3" name="__codelineno-25-3" href="#__codelineno-25-3"></a>touch<span class="w"> </span>/usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+<a id="__codelineno-25-4" name="__codelineno-25-4" href="#__codelineno-25-4"></a>vim<span class="w"> </span>/usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+</code></pre></div>
+
+ - 配置显卡可见性
+
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-26-1" name="__codelineno-26-1" href="#__codelineno-26-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">ASCEND_RT_VISIBLE_DEVICES</span><span class="o">=</span><span class="m">0</span>,1,2,3
+</code></pre></div>
+
+ - 配置如下：
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-27-1" name="__codelineno-27-1" href="#__codelineno-27-1"></a><span class="err">rm</span><span class="w"> </span><span class="mi">-</span><span class="err">r</span><span class="kc">f</span><span class="w"> </span><span class="err">/usr/local/Asce</span><span class="kc">n</span><span class="err">d/mi</span><span class="kc">n</span><span class="err">die/la</span><span class="kc">test</span><span class="err">/mi</span><span class="kc">n</span><span class="err">die</span><span class="mi">-</span><span class="err">service/co</span><span class="kc">nf</span><span class="err">/co</span><span class="kc">nf</span><span class="err">ig.jso</span><span class="kc">n</span>
+<a id="__codelineno-27-2" name="__codelineno-27-2" href="#__codelineno-27-2"></a><span class="kc">t</span><span class="err">ouch</span><span class="w"> </span><span class="err">/usr/local/Asce</span><span class="kc">n</span><span class="err">d/mi</span><span class="kc">n</span><span class="err">die/la</span><span class="kc">test</span><span class="err">/mi</span><span class="kc">n</span><span class="err">die</span><span class="mi">-</span><span class="err">service/co</span><span class="kc">nf</span><span class="err">/co</span><span class="kc">nf</span><span class="err">ig.jso</span><span class="kc">n</span>
+<a id="__codelineno-27-3" name="__codelineno-27-3" href="#__codelineno-27-3"></a><span class="err">ca</span><span class="kc">t</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="err">/usr/local/Asce</span><span class="kc">n</span><span class="err">d/mi</span><span class="kc">n</span><span class="err">die/la</span><span class="kc">test</span><span class="err">/mi</span><span class="kc">n</span><span class="err">die</span><span class="mi">-</span><span class="err">service/co</span><span class="kc">nf</span><span class="err">/co</span><span class="kc">nf</span><span class="err">ig.jso</span><span class="kc">n</span><span class="w"> </span><span class="err">&lt;&lt;EOF</span>
+<a id="__codelineno-27-4" name="__codelineno-27-4" href="#__codelineno-27-4"></a><span class="p">{</span>
+<a id="__codelineno-27-5" name="__codelineno-27-5" href="#__codelineno-27-5"></a><span class="w">    </span><span class="nt">&quot;OtherParam&quot;</span><span class="w"> </span><span class="p">:</span>
+<a id="__codelineno-27-6" name="__codelineno-27-6" href="#__codelineno-27-6"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-27-7" name="__codelineno-27-7" href="#__codelineno-27-7"></a><span class="w">        </span><span class="nt">&quot;ResourceParam&quot;</span><span class="w"> </span><span class="p">:</span>
+<a id="__codelineno-27-8" name="__codelineno-27-8" href="#__codelineno-27-8"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-27-9" name="__codelineno-27-9" href="#__codelineno-27-9"></a><span class="w">            </span><span class="nt">&quot;cacheBlockSize&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">128</span><span class="p">,</span>
+<a id="__codelineno-27-10" name="__codelineno-27-10" href="#__codelineno-27-10"></a><span class="w">            </span><span class="nt">&quot;preAllocBlocks&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span>
+<a id="__codelineno-27-11" name="__codelineno-27-11" href="#__codelineno-27-11"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-27-12" name="__codelineno-27-12" href="#__codelineno-27-12"></a><span class="w">        </span><span class="nt">&quot;LogParam&quot;</span><span class="w"> </span><span class="p">:</span>
+<a id="__codelineno-27-13" name="__codelineno-27-13" href="#__codelineno-27-13"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-27-14" name="__codelineno-27-14" href="#__codelineno-27-14"></a><span class="w">            </span><span class="nt">&quot;logLevel&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Info&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-15" name="__codelineno-27-15" href="#__codelineno-27-15"></a><span class="w">            </span><span class="nt">&quot;logPath&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;logs/mindservice.log&quot;</span>
+<a id="__codelineno-27-16" name="__codelineno-27-16" href="#__codelineno-27-16"></a><span class="w">        </span><span class="p">},</span>
+<a id="__codelineno-27-17" name="__codelineno-27-17" href="#__codelineno-27-17"></a><span class="w">        </span><span class="nt">&quot;ServeParam&quot;</span><span class="w"> </span><span class="p">:</span>
+<a id="__codelineno-27-18" name="__codelineno-27-18" href="#__codelineno-27-18"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-27-19" name="__codelineno-27-19" href="#__codelineno-27-19"></a><span class="w">            </span><span class="nt">&quot;ipAddress&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.1&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-20" name="__codelineno-27-20" href="#__codelineno-27-20"></a><span class="w">            </span><span class="nt">&quot;managementIpAddress&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;127.0.0.2&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-21" name="__codelineno-27-21" href="#__codelineno-27-21"></a><span class="w">            </span><span class="nt">&quot;port&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1025</span><span class="p">,</span>
+<a id="__codelineno-27-22" name="__codelineno-27-22" href="#__codelineno-27-22"></a><span class="w">            </span><span class="nt">&quot;managementPort&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1026</span><span class="p">,</span>
+<a id="__codelineno-27-23" name="__codelineno-27-23" href="#__codelineno-27-23"></a><span class="w">            </span><span class="nt">&quot;maxLinkNum&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1000</span><span class="p">,</span>
+<a id="__codelineno-27-24" name="__codelineno-27-24" href="#__codelineno-27-24"></a><span class="w">            </span><span class="nt">&quot;httpsEnabled&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-27-25" name="__codelineno-27-25" href="#__codelineno-27-25"></a><span class="w">            </span><span class="nt">&quot;tlsCaPath&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/ca/&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-26" name="__codelineno-27-26" href="#__codelineno-27-26"></a><span class="w">            </span><span class="nt">&quot;tlsCaFile&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;ca.pem&quot;</span><span class="p">],</span>
+<a id="__codelineno-27-27" name="__codelineno-27-27" href="#__codelineno-27-27"></a><span class="w">            </span><span class="nt">&quot;tlsCert&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/certs/server.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-28" name="__codelineno-27-28" href="#__codelineno-27-28"></a><span class="w">            </span><span class="nt">&quot;tlsPk&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/keys/server.key.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-29" name="__codelineno-27-29" href="#__codelineno-27-29"></a><span class="w">            </span><span class="nt">&quot;tlsPkPwd&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/pass/mindie_server_key_pwd.txt&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-30" name="__codelineno-27-30" href="#__codelineno-27-30"></a><span class="w">            </span><span class="nt">&quot;tlsCrl&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/certs/server_crl.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-31" name="__codelineno-27-31" href="#__codelineno-27-31"></a><span class="w">            </span><span class="nt">&quot;managementTlsCaFile&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;management_ca.pem&quot;</span><span class="p">],</span>
+<a id="__codelineno-27-32" name="__codelineno-27-32" href="#__codelineno-27-32"></a><span class="w">            </span><span class="nt">&quot;managementTlsCert&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/certs/management_server.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-33" name="__codelineno-27-33" href="#__codelineno-27-33"></a><span class="w">            </span><span class="nt">&quot;managementTlsPk&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/keys/management_server.key.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-34" name="__codelineno-27-34" href="#__codelineno-27-34"></a><span class="w">            </span><span class="nt">&quot;managementTlsPkPwd&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/pass/management_mindie_server_key_pwd.txt&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-35" name="__codelineno-27-35" href="#__codelineno-27-35"></a><span class="w">            </span><span class="nt">&quot;managementTlsCrl&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/certs/management_server_crl.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-36" name="__codelineno-27-36" href="#__codelineno-27-36"></a><span class="w">            </span><span class="nt">&quot;kmcKsfMaster&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tools/pmt/master/ksfa&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-37" name="__codelineno-27-37" href="#__codelineno-27-37"></a><span class="w">            </span><span class="nt">&quot;kmcKsfStandby&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tools/pmt/standby/ksfb&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-38" name="__codelineno-27-38" href="#__codelineno-27-38"></a><span class="w">            </span><span class="nt">&quot;multiNodesInferPort&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1120</span><span class="p">,</span>
+<a id="__codelineno-27-39" name="__codelineno-27-39" href="#__codelineno-27-39"></a><span class="w">            </span><span class="nt">&quot;interNodeTLSEnabled&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-27-40" name="__codelineno-27-40" href="#__codelineno-27-40"></a><span class="w">            </span><span class="nt">&quot;interNodeTlsCaFile&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/ca/ca.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-41" name="__codelineno-27-41" href="#__codelineno-27-41"></a><span class="w">            </span><span class="nt">&quot;interNodeTlsCert&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/certs/server.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-42" name="__codelineno-27-42" href="#__codelineno-27-42"></a><span class="w">            </span><span class="nt">&quot;interNodeTlsPk&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/keys/server.key.pem&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-43" name="__codelineno-27-43" href="#__codelineno-27-43"></a><span class="w">            </span><span class="nt">&quot;interNodeTlsPkPwd&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;security/pass/mindie_server_key_pwd.txt&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-44" name="__codelineno-27-44" href="#__codelineno-27-44"></a><span class="w">            </span><span class="nt">&quot;interNodeKmcKsfMaster&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tools/pmt/master/ksfa&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-45" name="__codelineno-27-45" href="#__codelineno-27-45"></a><span class="w">            </span><span class="nt">&quot;interNodeKmcKsfStandby&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;tools/pmt/standby/ksfb&quot;</span>
+<a id="__codelineno-27-46" name="__codelineno-27-46" href="#__codelineno-27-46"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-27-47" name="__codelineno-27-47" href="#__codelineno-27-47"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-27-48" name="__codelineno-27-48" href="#__codelineno-27-48"></a><span class="w">    </span><span class="nt">&quot;WorkFlowParam&quot;</span><span class="w"> </span><span class="p">:</span>
+<a id="__codelineno-27-49" name="__codelineno-27-49" href="#__codelineno-27-49"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-27-50" name="__codelineno-27-50" href="#__codelineno-27-50"></a><span class="w">        </span><span class="nt">&quot;TemplateParam&quot;</span><span class="w"> </span><span class="p">:</span>
+<a id="__codelineno-27-51" name="__codelineno-27-51" href="#__codelineno-27-51"></a><span class="w">        </span><span class="p">{</span>
+<a id="__codelineno-27-52" name="__codelineno-27-52" href="#__codelineno-27-52"></a><span class="w">            </span><span class="nt">&quot;templateType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Standard&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-53" name="__codelineno-27-53" href="#__codelineno-27-53"></a><span class="w">            </span><span class="nt">&quot;templateName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Standard_llama&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-54" name="__codelineno-27-54" href="#__codelineno-27-54"></a><span class="w">            </span><span class="nt">&quot;pipelineNumber&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span>
+<a id="__codelineno-27-55" name="__codelineno-27-55" href="#__codelineno-27-55"></a><span class="w">        </span><span class="p">}</span>
+<a id="__codelineno-27-56" name="__codelineno-27-56" href="#__codelineno-27-56"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-27-57" name="__codelineno-27-57" href="#__codelineno-27-57"></a><span class="w">    </span><span class="nt">&quot;ModelDeployParam&quot;</span><span class="w"> </span><span class="p">:</span>
+<a id="__codelineno-27-58" name="__codelineno-27-58" href="#__codelineno-27-58"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-27-59" name="__codelineno-27-59" href="#__codelineno-27-59"></a><span class="w">        </span><span class="nt">&quot;engineName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mindieservice_llm_engine&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-60" name="__codelineno-27-60" href="#__codelineno-27-60"></a><span class="w">        </span><span class="nt">&quot;modelInstanceNumber&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span>
+<a id="__codelineno-27-61" name="__codelineno-27-61" href="#__codelineno-27-61"></a><span class="w">        </span><span class="nt">&quot;tokenizerProcessNumber&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<a id="__codelineno-27-62" name="__codelineno-27-62" href="#__codelineno-27-62"></a><span class="w">        </span><span class="nt">&quot;maxSeqLen&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2560</span><span class="p">,</span>
+<a id="__codelineno-27-63" name="__codelineno-27-63" href="#__codelineno-27-63"></a><span class="w">        </span><span class="nt">&quot;npuDeviceIds&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">]],</span>
+<a id="__codelineno-27-64" name="__codelineno-27-64" href="#__codelineno-27-64"></a><span class="w">        </span><span class="nt">&quot;multiNodesInferEnabled&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-27-65" name="__codelineno-27-65" href="#__codelineno-27-65"></a><span class="w">        </span><span class="nt">&quot;ModelParam&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+<a id="__codelineno-27-66" name="__codelineno-27-66" href="#__codelineno-27-66"></a><span class="w">            </span><span class="p">{</span>
+<a id="__codelineno-27-67" name="__codelineno-27-67" href="#__codelineno-27-67"></a><span class="w">                </span><span class="nt">&quot;modelInstanceType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Standard&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-68" name="__codelineno-27-68" href="#__codelineno-27-68"></a><span class="w">                </span><span class="nt">&quot;modelName&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Qwen&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-69" name="__codelineno-27-69" href="#__codelineno-27-69"></a><span class="w">                </span><span class="nt">&quot;modelWeightPath&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;/home/models/Qwen1.5/Qwen1.5-7B-Chat&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-70" name="__codelineno-27-70" href="#__codelineno-27-70"></a><span class="w">                </span><span class="nt">&quot;worldSize&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span>
+<a id="__codelineno-27-71" name="__codelineno-27-71" href="#__codelineno-27-71"></a><span class="w">                </span><span class="nt">&quot;cpuMemSize&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span>
+<a id="__codelineno-27-72" name="__codelineno-27-72" href="#__codelineno-27-72"></a><span class="w">                </span><span class="nt">&quot;npuMemSize&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span>
+<a id="__codelineno-27-73" name="__codelineno-27-73" href="#__codelineno-27-73"></a><span class="w">                </span><span class="nt">&quot;backendType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;atb&quot;</span><span class="p">,</span>
+<a id="__codelineno-27-74" name="__codelineno-27-74" href="#__codelineno-27-74"></a><span class="w">                </span><span class="nt">&quot;pluginParams&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;&quot;</span>
+<a id="__codelineno-27-75" name="__codelineno-27-75" href="#__codelineno-27-75"></a><span class="w">            </span><span class="p">}</span>
+<a id="__codelineno-27-76" name="__codelineno-27-76" href="#__codelineno-27-76"></a><span class="w">        </span><span class="p">]</span>
+<a id="__codelineno-27-77" name="__codelineno-27-77" href="#__codelineno-27-77"></a><span class="w">    </span><span class="p">},</span>
+<a id="__codelineno-27-78" name="__codelineno-27-78" href="#__codelineno-27-78"></a><span class="w">    </span><span class="nt">&quot;ScheduleParam&quot;</span><span class="w"> </span><span class="p">:</span>
+<a id="__codelineno-27-79" name="__codelineno-27-79" href="#__codelineno-27-79"></a><span class="w">    </span><span class="p">{</span>
+<a id="__codelineno-27-80" name="__codelineno-27-80" href="#__codelineno-27-80"></a><span class="w">        </span><span class="nt">&quot;maxPrefillBatchSize&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<a id="__codelineno-27-81" name="__codelineno-27-81" href="#__codelineno-27-81"></a><span class="w">        </span><span class="nt">&quot;maxPrefillTokens&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">8192</span><span class="p">,</span>
+<a id="__codelineno-27-82" name="__codelineno-27-82" href="#__codelineno-27-82"></a><span class="w">        </span><span class="nt">&quot;prefillTimeMsPerReq&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">150</span><span class="p">,</span>
+<a id="__codelineno-27-83" name="__codelineno-27-83" href="#__codelineno-27-83"></a><span class="w">        </span><span class="nt">&quot;prefillPolicyType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-27-84" name="__codelineno-27-84" href="#__codelineno-27-84"></a>
+<a id="__codelineno-27-85" name="__codelineno-27-85" href="#__codelineno-27-85"></a><span class="w">        </span><span class="nt">&quot;decodeTimeMsPerReq&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">50</span><span class="p">,</span>
+<a id="__codelineno-27-86" name="__codelineno-27-86" href="#__codelineno-27-86"></a><span class="w">        </span><span class="nt">&quot;decodePolicyType&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-27-87" name="__codelineno-27-87" href="#__codelineno-27-87"></a>
+<a id="__codelineno-27-88" name="__codelineno-27-88" href="#__codelineno-27-88"></a><span class="w">        </span><span class="nt">&quot;maxBatchSize&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">200</span><span class="p">,</span>
+<a id="__codelineno-27-89" name="__codelineno-27-89" href="#__codelineno-27-89"></a><span class="w">        </span><span class="nt">&quot;maxIterTimes&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span>
+<a id="__codelineno-27-90" name="__codelineno-27-90" href="#__codelineno-27-90"></a><span class="w">        </span><span class="nt">&quot;maxPreemptCount&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<a id="__codelineno-27-91" name="__codelineno-27-91" href="#__codelineno-27-91"></a><span class="w">        </span><span class="nt">&quot;supportSelectBatch&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="p">,</span>
+<a id="__codelineno-27-92" name="__codelineno-27-92" href="#__codelineno-27-92"></a><span class="w">        </span><span class="nt">&quot;maxQueueDelayMicroseconds&quot;</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">5000</span>
+<a id="__codelineno-27-93" name="__codelineno-27-93" href="#__codelineno-27-93"></a><span class="w">    </span><span class="p">}</span>
+<a id="__codelineno-27-94" name="__codelineno-27-94" href="#__codelineno-27-94"></a><span class="p">}</span>
+<a id="__codelineno-27-95" name="__codelineno-27-95" href="#__codelineno-27-95"></a><span class="err">EOF</span>
+</code></pre></div>
+
+    <div class="highlight"><pre><span></span><code><a id="__codelineno-28-1" name="__codelineno-28-1" href="#__codelineno-28-1"></a>export PYTHONPATH=/usr/local/Ascend/llm_model:$PYTHONPATH
+<a id="__codelineno-28-2" name="__codelineno-28-2" href="#__codelineno-28-2"></a>cd /usr/local/Ascend/mindie/latest/mindie-service/bin
+<a id="__codelineno-28-3" name="__codelineno-28-3" href="#__codelineno-28-3"></a>./mindieservice_daemon
+<a id="__codelineno-28-4" name="__codelineno-28-4" href="#__codelineno-28-4"></a>
+<a id="__codelineno-28-5" name="__codelineno-28-5" href="#__codelineno-28-5"></a>cat ../logs/mindservice.log
+</code></pre></div>
+
+
+  - 测试服务可用性
+
+    在物理机另开终端
+
+    [使用兼容OpenAI接口](https://www.hiascend.com/document/detail/zh/mindie/10RC2/mindieservice/servicedev/mindie_service0010.html)
+
+    ```bash
+    curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{
+      "model": "dolphin",
+      "messages": [{
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {"role": "system",
+      "content": "你是谁"}],
+      "presence_penalty": 1.03,
+      "frequency_penalty": 1.0,
+      "seed": null,
+      "temperature": 0.5,
+      "top_p": 0.95,
+      "stream": false
+      }' http://127.0.0.1:1025/v1/chat/completions
+    ``` -->
 
 
 
