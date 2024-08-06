@@ -118,6 +118,12 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
         -w /home \
         --device=/dev/davinci0 \
         --device=/dev/davinci1 \
+        --device=/dev/davinci2 \
+        --device=/dev/davinci3 \
+        --device=/dev/davinci4 \
+        --device=/dev/davinci5 \
+        --device=/dev/davinci6 \
+        --device=/dev/davinci7 \
         --device=/dev/davinci_manager \
         --device=/dev/hisi_hdc \
         --device=/dev/devmm_svm \
@@ -366,4 +372,151 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
       }' http://127.0.0.1:1025/v1/chat/completions
     ```
 
- - BenchMark 性能测试
+
+<!-- ## 两芯片（单卡300I Duo）部署Hi-Dolphin-7B-Chat推理服务 (TODO)
+
+ - 修改配置 `/usr/local/Ascend/mindie/latest/mindie-service/conf/config.json` 
+    ```bash
+    cp /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json /usr/local/Ascend/mindie/latest/mindie-service/conf/config-backup.json
+    rm -rf /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+    touch /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+    vim /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+    ```
+
+ - 配置显卡可见性
+
+    ```bash
+    export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3
+    ```
+
+ - 配置如下：
+    ```json
+    rm -rf /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+    touch /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json
+    cat > /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json <<EOF
+    {
+        "OtherParam" :
+        {
+            "ResourceParam" :
+            {
+                "cacheBlockSize" : 128,
+                "preAllocBlocks" : 4
+            },
+            "LogParam" :
+            {
+                "logLevel" : "Info",
+                "logPath" : "logs/mindservice.log"
+            },
+            "ServeParam" :
+            {
+                "ipAddress" : "127.0.0.1",
+                "managementIpAddress" : "127.0.0.2",
+                "port" : 1025,
+                "managementPort" : 1026,
+                "maxLinkNum" : 1000,
+                "httpsEnabled" : false,
+                "tlsCaPath" : "security/ca/",
+                "tlsCaFile" : ["ca.pem"],
+                "tlsCert" : "security/certs/server.pem",
+                "tlsPk" : "security/keys/server.key.pem",
+                "tlsPkPwd" : "security/pass/mindie_server_key_pwd.txt",
+                "tlsCrl" : "security/certs/server_crl.pem",
+                "managementTlsCaFile" : ["management_ca.pem"],
+                "managementTlsCert" : "security/certs/management_server.pem",
+                "managementTlsPk" : "security/keys/management_server.key.pem",
+                "managementTlsPkPwd" : "security/pass/management_mindie_server_key_pwd.txt",
+                "managementTlsCrl" : "security/certs/management_server_crl.pem",
+                "kmcKsfMaster" : "tools/pmt/master/ksfa",
+                "kmcKsfStandby" : "tools/pmt/standby/ksfb",
+                "multiNodesInferPort" : 1120,
+                "interNodeTLSEnabled" : false,
+                "interNodeTlsCaFile" : "security/ca/ca.pem",
+                "interNodeTlsCert" : "security/certs/server.pem",
+                "interNodeTlsPk" : "security/keys/server.key.pem",
+                "interNodeTlsPkPwd" : "security/pass/mindie_server_key_pwd.txt",
+                "interNodeKmcKsfMaster" : "tools/pmt/master/ksfa",
+                "interNodeKmcKsfStandby" : "tools/pmt/standby/ksfb"
+            }
+        },
+        "WorkFlowParam" :
+        {
+            "TemplateParam" :
+            {
+                "templateType" : "Standard",
+                "templateName" : "Standard_llama",
+                "pipelineNumber" : 1
+            }
+        },
+        "ModelDeployParam" :
+        {
+            "engineName" : "mindieservice_llm_engine",
+            "modelInstanceNumber" : 1,
+            "tokenizerProcessNumber" : 8,
+            "maxSeqLen" : 2560,
+            "npuDeviceIds" : [[0,1,2,3]],
+            "multiNodesInferEnabled" : false,
+            "ModelParam" : [
+                {
+                    "modelInstanceType" : "Standard",
+                    "modelName" : "Qwen",
+                    "modelWeightPath" : "/home/models/Qwen1.5/Qwen1.5-7B-Chat",
+                    "worldSize" : 4,
+                    "cpuMemSize" : 5,
+                    "npuMemSize" : 16,
+                    "backendType" : "atb",
+                    "pluginParams" : ""
+                }
+            ]
+        },
+        "ScheduleParam" :
+        {
+            "maxPrefillBatchSize" : 50,
+            "maxPrefillTokens" : 8192,
+            "prefillTimeMsPerReq" : 150,
+            "prefillPolicyType" : 0,
+
+            "decodeTimeMsPerReq" : 50,
+            "decodePolicyType" : 0,
+
+            "maxBatchSize" : 200,
+            "maxIterTimes" : 512,
+            "maxPreemptCount" : 0,
+            "supportSelectBatch" : false,
+            "maxQueueDelayMicroseconds" : 5000
+        }
+    }
+    EOF
+    ```
+
+    ```
+    export PYTHONPATH=/usr/local/Ascend/llm_model:$PYTHONPATH
+    cd /usr/local/Ascend/mindie/latest/mindie-service/bin
+    ./mindieservice_daemon
+
+    cat ../logs/mindservice.log
+    ```
+
+
+  - 测试服务可用性
+    
+    在物理机另开终端
+
+    [使用兼容OpenAI接口](https://www.hiascend.com/document/detail/zh/mindie/10RC2/mindieservice/servicedev/mindie_service0010.html)
+
+    ```bash
+    curl -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{
+      "model": "dolphin",
+      "messages": [{
+        "role": "system",
+        "content": "You are a helpful assistant."
+      },
+      {"role": "system",
+      "content": "你是谁"}],
+      "presence_penalty": 1.03,
+      "frequency_penalty": 1.0,
+      "seed": null,
+      "temperature": 0.5,
+      "top_p": 0.95,
+      "stream": false
+      }' http://127.0.0.1:1025/v1/chat/completions
+    ``` -->

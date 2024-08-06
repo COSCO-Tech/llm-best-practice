@@ -378,3 +378,4 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
       "stream": false
       }' http://127.0.0.1:1025/v1/chat/completions
     ```
+

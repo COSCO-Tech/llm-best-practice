@@ -65,3 +65,15 @@
     ```bash title="再次尝试重装驱动"
     ./Ascend-hdk-310p-npu-driver_23.0.1_linux-aarch64.run --full --install-for-all --force
     ```
+
+    ```bash title="重启"
+    reboot
+    ```
+
+    重启后再次查看设备：
+
+    ```bash
+    npu-smi info
+    ```
+
+    回显所有显卡信息 -> 成功！
