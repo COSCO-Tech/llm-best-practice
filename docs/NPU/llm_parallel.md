@@ -1,5 +1,3 @@
-# Atlas 300I Duo MindIE部署Qwen1.5-7B-Chat
-
 Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何在Atlas 300I Duo上进行MindIE模型推理。
 
 ## 环境准备
@@ -74,8 +72,8 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
  - **在一台能够访问公网的机器上拉取镜像**
 
     ```bash
-    sudo docker login -u cn-south-1@LQD01JL1KE4MVUULGERV swr.cn-south-1.myhuaweicloud.com
-    8b2046193e1420c8376503d0231d0dbaa766a2e21f973f7d0dd4c9a3e5a992d8
+    sudo docker login -u cn-south-1@***************** swr.cn-south-1.myhuaweicloud.com
+    8b204*************************************************
     sudo docker pull swr.cn-south-1.myhuaweicloud.com/ascendhub/mindie:1.0.RC2-300I-Duo-aarch64
     ```
 
@@ -99,10 +97,10 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
 
  - 上传模型至Atlas 300I Duo
 
-    模型示例选择：`Qwen1.5/Qwen1.5-7B-Chat` 存放于 `/home/models/Qwen1.5/Qwen1.5-7B-Chat`
+    模型选择：基于Qwen1.5-72B-Chat微调的Dolphin-72B-Chat模型
 
 
-## 测试运行
+## 启动准备 单次推理测试
 
  - 编写shell脚本 用于启动MindIE镜像 shell脚本存放于`/root/start-docker.sh`
 
@@ -156,11 +154,11 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     ```bash
     cd /root/
     # 设置模型权重路径
-    CHECKPOINT=/home/models/Qwen1.5/Qwen1.5-7B-Chat
+    CHECKPOINT=/home/models/Dolphin/Dolphin-72B-Chat
     # 用户可以设置 docker images 命令回显中的 IMAGES ID
     image_id=50f78f73681d
     # 用户可以自定义设置镜像名
-    custom_image_name=Qwen1.5-7B-Chat-MindIE
+    custom_image_name=Dolphin-72B-Chat-MindIE
     # 启动容器(确保启动容器前，本机可访问外网)
     bash start-docker.sh ${image_id} ${custom_image_name}
     # 进入容器
@@ -181,51 +179,49 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     ```
 
 
- - 修改 Qwen1.5-7B-Chat 模型配置
+ - 修改 Dolphin-72B-Chat 模型配置
 
     > Qwen + MindIE适配详细README容器内路径：`/usr/local/Ascend/llm_model/examples/models/qwen/README.md`
 
-    ```bash
-    cd /usr/local/Ascend/llm_model
-    ```
 
- - **修改`config.json`：Qwen1.5模型权重所在路径中的config.json文件需将字段`torch_dtype`的值修改为"float16"**
+    1. **修改`config.json`：Dolphin模型权重所在路径中的config.json文件需将字段`torch_dtype`的值修改为"float16"**
 
 
-    ```bash
-    CHECKPOINT=/home/models/Qwen1.5/Qwen1.5-7B-Chat
-    vim ${CHECKPOINT}/config.json
+        ```bash
+        CHECKPOINT=/home/models/Dolphin/Dolphin-72B-Chat
+        vim ${CHECKPOINT}/config.json
 
-    "torch_dtype": "float16"
-    ```
+        "torch_dtype": "float16"
+        ```
 
- - **修改`examples/models/qwen/run_pa.sh`中的临时环境变量, Qwen1.5-7B-Chat仅需单卡即可运行**
+    2. **修改`examples/models/qwen/run_pa.sh`中的临时环境变量, Dolphin-72B-Chat需要多卡运行**
 
-    ```bash
-    vim /usr/local/Ascend/llm_model/examples/models/qwen/run_pa.sh
+        ```bash
+        vim /usr/local/Ascend/llm_model/examples/models/qwen/run_pa.sh
 
-    export ASCEND_RT_VISIBLE_DEVICES=0
-    ```
-
+        export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
+        ```
 
  - 执行推理测试脚本
     - `-m`: 指定模型权重文件夹路径
     - `-c`: 指定是否是Chat
 
     ```
+    cd /usr/local/Ascend/llm_model
+
     bash examples/models/qwen/run_pa.sh -m ${CHECKPOINT} -c true
     ```
 
- - 再次进入容器
+ - 若再次进入容器 需要执行以下命令
 
     ```bash
-    custom_image_name=Qwen1.5-7B-Chat-MindIE
+    custom_image_name=Dolphin-72B-Chat-MindIE
     docker exec -itu root ${custom_image_name} bash
     source /usr/local/Ascend/ascend-toolkit/set_env.sh
     source /usr/local/Ascend/mindie/set_env.sh
     source /usr/local/Ascend/llm_model/set_env.sh
     cd /usr/local/Ascend/llm_model
-    CHECKPOINT=/home/models/Qwen1.5/Qwen1.5-7B-Chat
+    CHECKPOINT=/home/models/Dolphin/Dolphin-72B-Chat
     bash examples/models/qwen/run_pa.sh -m ${CHECKPOINT} -c true
     ```
 
@@ -241,7 +237,7 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
  - 配置显卡可见性
 
     ```bash
-    export ASCEND_RT_VISIBLE_DEVICES=0
+    export ASCEND_RT_VISIBLE_DEVICES=0,1,2,3,4,5,6,7
     ```
 
  - 配置如下：
@@ -304,16 +300,16 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
             "modelInstanceNumber" : 1,
             "tokenizerProcessNumber" : 8,
             "maxSeqLen" : 2560,
-            "npuDeviceIds" : [[0]],
+            "npuDeviceIds" : [[0,1,2,3,4,5,6,7]],
             "multiNodesInferEnabled" : false,
             "ModelParam" : [
                 {
                     "modelInstanceType" : "Standard",
-                    "modelName" : "Qwen1_5_7B_Chat",
-                    "modelWeightPath" : "/home/models/Qwen1.5/Qwen1.5-7B-Chat",
-                    "worldSize" : 1,
+                    "modelName" : "Dolphin-72B-Chat",
+                    "modelWeightPath" : "/home/models/Dolphin/Dolphin-72B-Chat",
+                    "worldSize" : 8,
                     "cpuMemSize" : 5,
-                    "npuMemSize" : 8,
+                    "npuMemSize" : 10,
                     "backendType" : "atb",
                     "pluginParams" : ""
                 }
@@ -339,12 +335,61 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     EOF
     ```
 
-    ```
+    ```bash title="启动服务"
     export PYTHONPATH=/usr/local/Ascend/llm_model:$PYTHONPATH
     cd /usr/local/Ascend/mindie/latest/mindie-service/bin
     ./mindieservice_daemon
+    ```
 
+    ```bash title="日志查看"
     cat ../logs/mindservice.log
+    ```
+
+  - 日志报错如下：
+
+    ```
+    2024-08-14 13:59:20.267521 140144 error LLMModelExecutorPython.cpp:56] LLMPythonModel initializes fail: modelWrapper return status is error
+    2024-08-14 13:59:20.267610 140144 error slave_IPC_communicator.cpp:317] [SlaveIPCCommunicator::ProcessBroadcastRecvMessage]Executor failed to init model
+    2024-08-14 13:59:20.267655 140144 error slave_IPC_communicator.cpp:438] [HandleRcvMsg]Executor failed to process recv broadcastMessage
+    2024-08-14 13:59:20.267661 140144 error slave_IPC_communicator.cpp:446] [HandleRcvMsg]slave communicator notify connector to terminate
+    2024-08-14 13:59:20.318831 140134 error LLMModelExecutorPython.cpp:56] LLMPythonModel initializes fail: modelWrapper return status is error
+    2024-08-14 13:59:20.318959 140134 error slave_IPC_communicator.cpp:317] [SlaveIPCCommunicator::ProcessBroadcastRecvMessage]Executor failed to init model
+    2024-08-14 13:59:20.318993 140134 error slave_IPC_communicator.cpp:438] [HandleRcvMsg]Executor failed to process recv broadcastMessage
+    2024-08-14 13:59:20.318998 140134 error slave_IPC_communicator.cpp:446] [HandleRcvMsg]slave communicator notify connector to terminate
+    2024-08-14 13:59:20.324047 140138 error LLMModelExecutorPython.cpp:56] LLMPythonModel initializes fail: modelWrapper return status is error
+    2024-08-14 13:59:20.324133 140138 error slave_IPC_communicator.cpp:317] [SlaveIPCCommunicator::ProcessBroadcastRecvMessage]Executor failed to init model
+    2024-08-14 13:59:20.324159 140138 error slave_IPC_communicator.cpp:438] [HandleRcvMsg]Executor failed to process recv broadcastMessage
+    2024-08-14 13:59:20.324164 140138 error slave_IPC_communicator.cpp:446] [HandleRcvMsg]slave communicator notify connector to terminate
+    2024-08-14 13:59:20.328548 140141 error LLMModelExecutorPython.cpp:56] LLMPythonModel initializes fail: modelWrapper return status is error
+    2024-08-14 13:59:20.328624 140141 error slave_IPC_communicator.cpp:317] [SlaveIPCCommunicator::ProcessBroadcastRecvMessage]Executor failed to init model
+    2024-08-14 13:59:20.328643 140141 error slave_IPC_communicator.cpp:438] [HandleRcvMsg]Executor failed to process recv broadcastMessage
+    2024-08-14 13:59:20.328648 140141 error slave_IPC_communicator.cpp:446] [HandleRcvMsg]slave communicator notify connector to terminate
+    2024-08-14 13:59:20.334591 140133 error LLMModelExecutorPython.cpp:56] LLMPythonModel initializes fail: modelWrapper return status is error
+    2024-08-14 13:59:20.334662 140133 error slave_IPC_communicator.cpp:317] [SlaveIPCCommunicator::ProcessBroadcastRecvMessage]Executor failed to init model
+    2024-08-14 13:59:20.334684 140133 error slave_IPC_communicator.cpp:438] [HandleRcvMsg]Executor failed to process recv broadcastMessage
+    2024-08-14 13:59:20.334689 140133 error slave_IPC_communicator.cpp:446] [HandleRcvMsg]slave communicator notify connector to terminate
+    2024-08-14 13:59:20.336023 140140 error LLMModelExecutorPython.cpp:56] LLMPythonModel initializes fail: modelWrapper return status is error
+    2024-08-14 13:59:20.336107 140140 error slave_IPC_communicator.cpp:317] [SlaveIPCCommunicator::ProcessBroadcastRecvMessage]Executor failed to init model
+    2024-08-14 13:59:20.336127 140140 error slave_IPC_communicator.cpp:438] [HandleRcvMsg]Executor failed to process recv broadcastMessage
+    2024-08-14 13:59:20.336132 140140 error slave_IPC_communicator.cpp:446] [HandleRcvMsg]slave communicator notify connector to terminate
+    2024-08-14 13:59:20.336121 140137 error LLMModelExecutorPython.cpp:56] LLMPythonModel initializes fail: modelWrapper return status is error
+    2024-08-14 13:59:20.336191 140137 error slave_IPC_communicator.cpp:317] [SlaveIPCCommunicator::ProcessBroadcastRecvMessage]Executor failed to init model
+    2024-08-14 13:59:20.336213 140137 error slave_IPC_communicator.cpp:438] [HandleRcvMsg]Executor failed to process recv broadcastMessage
+    2024-08-14 13:59:20.336218 140137 error slave_IPC_communicator.cpp:446] [HandleRcvMsg]slave communicator notify connector to terminate
+    2024-08-14 13:59:20.267666 140144 warning main.cpp:24] [Backend connector]Signal 15 received, exiting the process
+    2024-08-14 13:59:20.336137 140140 warning main.cpp:24] [Backend connector]Signal 15 received, exiting the process
+    2024-08-14 13:59:20.324170 140138 warning main.cpp:24] [Backend connector]Signal 15 received, exiting the process
+    2024-08-14 13:59:20.319003 140134 warning main.cpp:24] [Backend connector]Signal 15 received, exiting the process
+    2024-08-14 13:59:20.336224 140137 warning main.cpp:24] [Backend connector]Signal 15 received, exiting the process
+    2024-08-14 13:59:20.328653 140141 warning main.cpp:24] [Backend connector]Signal 15 received, exiting the process
+    2024-08-14 13:59:20.334694 140133 warning main.cpp:24] [Backend connector]Signal 15 received, exiting the process
+    2024-08-14 13:59:24.471574 140092 warning llm_daemon.cpp:61] [Daemon] received exit signal[17]
+    2024-08-14 13:59:24.754689 140090 warning llm_daemon.cpp:61] [Daemon] received exit signal[17]
+    2024-08-14 13:59:24.781455 140093 warning llm_daemon.cpp:61] [Daemon] received exit signal[17]
+
+    2024-08-14 14:00:29.058513 147434 Log started at [trace] level
+    2024-08-14 14:00:29.058519 147434 Log default format: yyyy-mm-dd hh:mm:ss.uuuuuu threadid loglevel msg
+    2024-08-14 14:00:29.810551 147434 warning llm_daemon.cpp:61] [Daemon] received exit signal[17]
     ```
 
 

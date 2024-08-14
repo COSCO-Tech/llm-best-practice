@@ -13,7 +13,7 @@ nav:
       - 离线安装Miniforge Python环境: NPU/miniforge.md
       - 昇腾虚拟化实例（算力切分）: NPU/vnpu.md
       - MindIE单机单卡部署Qwen1.5-7B-Chat: NPU/llm.md
-      - （TODO）MindIE单机多卡部署Qwen1.5-72B-Chat: NPU/llm_parallel.md
+      - MindIE单机多卡部署Dolphin-72B-Chat: NPU/llm_parallel.md
       - （TODO）FastDeploy + vNPU 部署OCR模型: NPU/ocr.md
       - （TODO）MindIE + FastDeploy + vNPU 部署 7B + 0.5B + OCR: NPU/llm+vnpu.md
       - 常见问题解决: NPU/faq.md
