@@ -1,5 +1,7 @@
 Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何在Atlas 300I Duo上进行MindIE模型推理。
 
+[官方文档](https://www.hiascend.com/document/detail/zh/mindie/10RC2/envdeployment/instg/mindie_instg_0025.html)
+
 ## 环境准备
 
  - 物理机已安装Docker，且Docker网络可用
@@ -241,6 +243,13 @@ Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何
     ```
 
  - 配置如下：
+
+    > - 以下配置文件仅供参考，具体配置需根据实际情况修改
+    > 
+    > - worldSize 需要等于 npuDeviceIds 中的设备数量
+    > 
+    > - [npuMemSize 计算方法](https://www.hiascend.com/document/detail/zh/mindie/10RC2/mindieservice/servicedev/mindie_service0291.html#ZH-CN_TOPIC_0000001960000088__section1750273519265)
+
     ```json
     cat > /usr/local/Ascend/mindie/latest/mindie-service/conf/config.json <<EOF
     {
