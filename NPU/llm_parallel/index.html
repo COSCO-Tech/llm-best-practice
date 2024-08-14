@@ -756,6 +756,7 @@
   <h1>MindIE单机多卡部署Dolphin-72B-Chat</h1>
 
 <p>Atlas 300I Duo是华为推理卡，支持MindIE模型推理。本文介绍如何在Atlas 300I Duo上进行MindIE模型推理。</p>
+<p><a href="https://www.hiascend.com/document/detail/zh/mindie/10RC2/envdeployment/instg/mindie_instg_0025.html">官方文档</a></p>
 <h2 id="_1">环境准备</h2>
 <ul>
 <li>
@@ -982,8 +983,21 @@
 </code></pre></div>
 </li>
 <li>
-<p>配置如下：
-    <div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="err">ca</span><span class="kc">t</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="err">/usr/local/Asce</span><span class="kc">n</span><span class="err">d/mi</span><span class="kc">n</span><span class="err">die/la</span><span class="kc">test</span><span class="err">/mi</span><span class="kc">n</span><span class="err">die</span><span class="mi">-</span><span class="err">service/co</span><span class="kc">nf</span><span class="err">/co</span><span class="kc">nf</span><span class="err">ig.jso</span><span class="kc">n</span><span class="w"> </span><span class="err">&lt;&lt;EOF</span>
+<p>配置如下：</p>
+<blockquote>
+<ul>
+<li>
+<p>以下配置文件仅供参考，具体配置需根据实际情况修改</p>
+</li>
+<li>
+<p>worldSize 需要等于 npuDeviceIds 中的设备数量</p>
+</li>
+<li>
+<p><a href="https://www.hiascend.com/document/detail/zh/mindie/10RC2/mindieservice/servicedev/mindie_service0291.html#ZH-CN_TOPIC_0000001960000088__section1750273519265">npuMemSize 计算方法</a></p>
+</li>
+</ul>
+</blockquote>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="err">ca</span><span class="kc">t</span><span class="w"> </span><span class="err">&gt;</span><span class="w"> </span><span class="err">/usr/local/Asce</span><span class="kc">n</span><span class="err">d/mi</span><span class="kc">n</span><span class="err">die/la</span><span class="kc">test</span><span class="err">/mi</span><span class="kc">n</span><span class="err">die</span><span class="mi">-</span><span class="err">service/co</span><span class="kc">nf</span><span class="err">/co</span><span class="kc">nf</span><span class="err">ig.jso</span><span class="kc">n</span><span class="w"> </span><span class="err">&lt;&lt;EOF</span>
 <a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="p">{</span>
 <a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a><span class="w">    </span><span class="nt">&quot;OtherParam&quot;</span><span class="w"> </span><span class="p">:</span>
 <a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a><span class="w">    </span><span class="p">{</span>
@@ -1074,7 +1088,7 @@
 <a id="__codelineno-21-89" name="__codelineno-21-89" href="#__codelineno-21-89"></a><span class="w">    </span><span class="p">}</span>
 <a id="__codelineno-21-90" name="__codelineno-21-90" href="#__codelineno-21-90"></a><span class="p">}</span>
 <a id="__codelineno-21-91" name="__codelineno-21-91" href="#__codelineno-21-91"></a><span class="err">EOF</span>
-</code></pre></div></p>
+</code></pre></div>
 <div class="highlight"><span class="filename">启动服务</span><pre><span></span><code><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PYTHONPATH</span><span class="o">=</span>/usr/local/Ascend/llm_model:<span class="nv">$PYTHONPATH</span>
 <a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="nb">cd</span><span class="w"> </span>/usr/local/Ascend/mindie/latest/mindie-service/bin
 <a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>./mindieservice_daemon
